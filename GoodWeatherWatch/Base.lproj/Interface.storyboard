@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller contentMode="scaleAspectFill" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="GoodWeatherWatch" customModuleProvider="target">
+                    <items>
+                        <group width="1" height="1" alignment="left" animationDuration="2" layout="vertical" spacing="0.0" id="bty-8l-PmX">
+                            <items>
+                                <label alignment="center" textAlignment="center" id="Hmn-jL-tCi"/>
+                                <group width="1" height="0.5" alignment="left" id="eHx-VE-sor">
+                                    <items>
+                                        <label width="0.5" height="1" alignment="center" verticalAlignment="center" textAlignment="center" numberOfLines="0" id="6Qf-48-3CR">
+                                            <fontDescription key="font" style="UICTFontTextStyleTitle1"/>
+                                        </label>
+                                        <imageView width="0.5" height="1" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="9eD-QC-gig">
+                                            <color key="tintColor" name="wheatherColorTop"/>
+                                        </imageView>
+                                    </items>
+                                </group>
+                                <label alignment="center" textAlignment="center" numberOfLines="0" id="zlT-Wv-6Jj"/>
+                                <button width="1" alignment="left" title="Update" id="pMh-uz-qWh">
+                                    <connections>
+                                        <action selector="updateButtonTapped" destination="AgC-eL-Hgc" id="75M-jA-9Lm"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="cityNameLabel" destination="Hmn-jL-tCi" id="K37-BO-KCs"/>
+                        <outlet property="conditionImage" destination="9eD-QC-gig" id="XA1-jr-uBm"/>
+                        <outlet property="conditionLabel" destination="zlT-Wv-6Jj" id="J9L-Ts-Keq"/>
+                        <outlet property="group" destination="bty-8l-PmX" id="UhF-ER-Xgy"/>
+                        <outlet property="temperatureLabel" destination="6Qf-48-3CR" id="GcG-Zv-yNd"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-174" y="-21"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="wheatherColorTop">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
