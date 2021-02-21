@@ -30,6 +30,8 @@ class WeatherViewController: UIViewController {
     var locationManager = CLLocationManager()
     var cityNameId = ""
     
+    var data: CurrentWeather?
+    
     var notificationObserver: NSObjectProtocol?
     
     override func viewDidLoad() {
@@ -43,18 +45,19 @@ class WeatherViewController: UIViewController {
         searchTextField.delegate = self
         
         notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name("GetData"), object: nil, queue: nil, using: { (_) in
-            self.weatherManager.fetchWeather(cityname: self.cityLabel.text ?? "Irkutsk")
+            let name = self.cityLabel.text?.split(separator: " ").joined(separator: "%20")
+            self.weatherManager.fetchWeather(cityname: name ?? "Irkutsk")
+            
             // when city name consists from two words will be error
         })
     }
     
-    
-    
-    func sendDataToWatch(temp: String, cityName: String, condition: String, description: String) {
+    func sendDataToWatch(with data: CurrentWeather) {
         if WCSession.isSupported() {
+            // i don't know why but xcode can't find images like "sun.max", need to remove "." char
+            let string = data.weather[0].conditionIdString.replacingOccurrences(of: ".", with: "")
             
-            let data = ["temp": temp, "city": cityName, "condition": condition, "description": description]
-            
+            let data = ["temp": data.main.temperatureString, "city": data.name, "condition": data.weather[0].conditionIdString, "description": data.weather[0].description, "image":string]
             do {
                 try WCSession.default.updateApplicationContext(data)
             } catch {
@@ -77,7 +80,6 @@ class WeatherViewController: UIViewController {
             destinationVC.url = cityNameId
         }
     }
-    
 }
 
 
@@ -134,20 +136,10 @@ extension WeatherViewController: WeatherManagerDelegate {
             } else {
                 backgroundImage.image = UIImage(named: data.weather[0].conditionIdString)
             }
-            
-            conditionImageView.image = UIImage(systemName: data.weather[0].conditionIdString)
-            temperatureLabel.text = data.main.temperatureString
-            feelsLikeLabel.text = data.main.feelsLikeString
-            humidityLabel.text = data.main.humidityString
-            pressureLabel.text = data.main.pressureString
-            cityLabel.text = data.name
-            descriptionLabel.text = data.weather[0].description
-            windSpeedLabel.text = data.wind.windString
-            cityNameId = data.idString
-            
-            sendDataToWatch(temp: data.main.temperatureString, cityName: data.name, condition: data.weather[0].conditionIdString, description: data.weather[0].description)
+            self.data = data
+            updateUI(with: data)
+            sendDataToWatch(with: data)
 
-            
             // pass data to weeklyviewcontroller
             let vc = self.tabBarController!.viewControllers![1] as! WeeklyViewController
             vc.lat = data.coord.lat
@@ -158,6 +150,19 @@ extension WeatherViewController: WeatherManagerDelegate {
             vc.temp = data.main.temperatureString
             vc.condString = data.weather[0].conditionIdString
         }
+    }
+    
+    func  updateUI(with data: CurrentWeather) {
+        conditionImageView.image = UIImage(systemName: data.weather[0].conditionIdString)
+        conditionImageView.image = UIImage(systemName: data.weather[0].conditionIdString)
+        temperatureLabel.text = data.main.temperatureString
+        feelsLikeLabel.text = data.main.feelsLikeString
+        humidityLabel.text = data.main.humidityString
+        pressureLabel.text = data.main.pressureString
+        cityLabel.text = data.name
+        descriptionLabel.text = data.weather[0].description
+        windSpeedLabel.text = data.wind.windString
+        cityNameId = data.idString
     }
     
     func didFailWithError() {
