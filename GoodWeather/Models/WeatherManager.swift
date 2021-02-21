@@ -20,6 +20,7 @@ class WeatherManager {
     
     func fetchWeather(cityname: String) {
         let urlString = "\(Constants.WEATHER_URL)weather?appid=\(Constants.API_KEY)&q=\(cityname)&units=metric"
+        print(urlString)
         performRequest(with: urlString)
     }
     

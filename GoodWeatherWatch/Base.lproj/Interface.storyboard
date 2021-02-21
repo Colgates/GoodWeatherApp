@@ -26,7 +26,9 @@
                                     </items>
                                 </group>
                                 <label alignment="center" textAlignment="center" numberOfLines="0" id="zlT-Wv-6Jj"/>
-                                <button width="1" alignment="left" title="Update" id="pMh-uz-qWh">
+                                <button width="30" height="30" alignment="center" verticalAlignment="bottom" backgroundImage="magnifyingglass" catalog="system" id="pMh-uz-qWh">
+                                    <color key="backgroundColor" name="wheatherColorTop"/>
+                                    <fontDescription key="font" type="system" pointSize="40"/>
                                     <connections>
                                         <action selector="updateButtonTapped" destination="AgC-eL-Hgc" id="75M-jA-9Lm"/>
                                     </connections>
@@ -47,6 +49,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="114"/>
         <namedColor name="wheatherColorTop">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

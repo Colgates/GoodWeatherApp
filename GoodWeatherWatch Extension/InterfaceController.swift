@@ -32,9 +32,22 @@ class InterfaceController: WKInterfaceController {
     
     
     @IBAction func updateButtonTapped() {
-        if WCSession.isSupported() {
-            WCSession.default.sendMessage(["data":"update"], replyHandler: nil)
+        presentTextInputController(withSuggestions: nil, allowedInputMode: .allowEmoji) { (results) in
+            guard let results = results else { return }
+//            self.cityNameLabel.setText(results[0] as? String)
+            
+            WCSession.default.sendMessage(["message":results[0]], replyHandler: nil)
+            
+//            if WCSession.isSupported() {
+//                do {
+//                    try WCSession.default.updateApplicationContext(["cityName":results[0]])
+//                } catch {
+//                    print("Error sending data to phone")
+//                }
+//            }
         }
+        
+        
     }
 }
 

@@ -44,11 +44,10 @@ class WeatherViewController: UIViewController {
         weatherManager.delegate = self
         searchTextField.delegate = self
         
-        notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name("GetData"), object: nil, queue: nil, using: { (_) in
-            let name = self.cityLabel.text?.split(separator: " ").joined(separator: "%20")
-            self.weatherManager.fetchWeather(cityname: name ?? "Irkutsk")
-            
-            // when city name consists from two words will be error
+        notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name("GetData"), object: nil, queue: nil, using: { notification in
+            guard let object = notification.object as? [String:String] else { return }
+            guard let cityName = object["message"] else { return }
+            self.weatherManager.fetchWeather(cityname: cityName)
         })
     }
     
