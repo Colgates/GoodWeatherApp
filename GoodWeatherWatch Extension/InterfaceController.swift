@@ -18,7 +18,6 @@ class InterfaceController: WKInterfaceController {
     @IBOutlet weak var conditionLabel: WKInterfaceLabel!
     
     override func awake(withContext context: Any?) {
-        
         setupWatchConnectivity()
     }
     
@@ -30,8 +29,22 @@ class InterfaceController: WKInterfaceController {
         }
     }
     
+    
+    
     @IBAction func updateButtonTapped() {
-        
+        sendDataToPhone()
+    }
+    
+    func sendDataToPhone() {
+        if WCSession.isSupported() {
+print("send data to phone")
+            do {
+                try WCSession.default.updateApplicationContext(["data":"update"])
+                WCSession.default.sendMessage(["data":"update1"], replyHandler: nil, errorHandler: nil)
+            } catch {
+                print("error")
+            }
+        }
     }
 }
 

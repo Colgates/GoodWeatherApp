@@ -61,4 +61,18 @@ extension AppDelegate: WCSessionDelegate {
         print(#function)
         WCSession.default.activate()
     }
-}
+    
+//    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+//        print("Phone recieved data")
+//        DispatchQueue.main.async {
+//        NotificationCenter.default.post(name: NSNotification.Name("GetData"), object: nil)
+//        }
+//    }
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        print("Phone recieved data")
+        DispatchQueue.main.async {
+        NotificationCenter.default.post(name: NSNotification.Name("GetData"), object: nil)
+        }
+    }
+    }

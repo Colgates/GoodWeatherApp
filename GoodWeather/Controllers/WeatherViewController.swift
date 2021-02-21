@@ -30,6 +30,8 @@ class WeatherViewController: UIViewController {
     var locationManager = CLLocationManager()
     var cityNameId = ""
     
+    var notificationObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +41,14 @@ class WeatherViewController: UIViewController {
         
         weatherManager.delegate = self
         searchTextField.delegate = self
+        
+        notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name("GetData"), object: nil, queue: nil, using: { (_) in
+            self.weatherManager.fetchWeather(cityname: self.cityLabel.text ?? "Irkutsk")
+            // when city name consists from two words will be error
+        })
     }
+    
+    
     
     func sendDataToWatch(temp: String, cityName: String, condition: String, description: String) {
         if WCSession.isSupported() {
@@ -180,4 +189,3 @@ extension WeatherViewController: CLLocationManagerDelegate {
         }
     }
 }
-
