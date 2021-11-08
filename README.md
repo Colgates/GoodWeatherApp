@@ -19,7 +19,7 @@ This is an app for getting weather information on your phone and Apple Watch. It
 
 - [Profile](https://github.com/Colgates "Evgenii Kolgin")
 - [Email](mailto:kolgin.ev@gmail.com?subject=Hi% "Hi!")
-- [Website](https://evgeniikogin.ru "Welcome")
+- [Website](https://evgeniikolgin.ru "Welcome")
 
 ## 🤝 Support
 Contributions, issues, and feature requests are welcome!
